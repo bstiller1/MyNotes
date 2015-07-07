@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/newnote"
+        android:icon="@drawable/note_add"
+        android:title="@string/newnote"
+        app:showAsAction="always">
+    </item>
+    <item
+        android:id="@+id/load"
+        android:icon="@drawable/table_multiple"
+        android:title="@string/load"
+        app:showAsAction="always">
+    </item>
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/lightbulb"
+        android:title="@string/help"
+        app:showAsAction="always">
+    </item>
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/information"
+        android:title="@string/about"
+        app:showAsAction="always">
+    </item>
+</menu>
