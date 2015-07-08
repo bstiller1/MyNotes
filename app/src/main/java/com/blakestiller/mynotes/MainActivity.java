@@ -1,17 +1,49 @@
 package com.blakestiller.mynotes;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import com.blakestiller.mynotes.Comment;
+
+import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ListActivity {
+    private CommentsDataSource datasource;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Show ActionBar
+        ActionBar actionBar = getActionBar();
+
+       // ListView notes = (ListView) findViewById(R.id.list);
+        datasource = new CommentsDataSource(this);
+        datasource.open();
+        // use the SimpleCursorAdapter to show the
+        // elements in a ListView
+        List<Comment> values = datasource.getAllComments();
+        ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this,
+                android.R.layout.simple_list_item_1, values);
+        setListAdapter(adapter);
+
+
+
     }
 
     @Override
@@ -19,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
@@ -34,5 +67,22 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void addNote(View view) {
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
+        Comment comment = null;
+        // Hide Numpad onClick - when the button is pressed
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+        // get all the user input from the EditText fields
+        EditText addNote = (EditText) findViewById(R.id.editText);
+        String comments = addNote.getText().toString();
+        // save the new comment to the database
+        comment = (Comment) datasource.createComment(comments);
+        adapter.add(comment);
+        adapter.notifyDataSetChanged();
     }
 }
