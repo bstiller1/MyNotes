@@ -30,7 +30,7 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
 
         //Show ActionBar
-        ActionBar actionBar = getActionBar();
+      // ActionBar actionBar = getActionBar();
 
        // ListView notes = (ListView) findViewById(R.id.list);
         datasource = new CommentsDataSource(this);

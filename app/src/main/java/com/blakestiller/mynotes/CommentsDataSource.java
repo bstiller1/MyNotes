@@ -1,6 +1,8 @@
 package com.blakestiller.mynotes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -52,7 +54,8 @@ public class CommentsDataSource {
 
     public List<Comment> getAllComments() {
         List<Comment> comments = new ArrayList<Comment>();
-
+        /* Sorting in decreasing order*/
+       Collections.sort(comments, Collections.reverseOrder());
         Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
                 allColumns, null, null, null, null, null);
 
